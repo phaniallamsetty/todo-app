@@ -14,10 +14,11 @@ if config.config_file_name is not None:
 
 # Override sqlalchemy.url from app settings so DATABASE_URL env var is respected.
 from app.config import settings  # noqa: E402
+from app.models import Base  # noqa: E402
 
 config.set_main_option("sqlalchemy.url", settings.database_url)
 
-target_metadata = None
+target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:
