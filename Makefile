@@ -1,4 +1,4 @@
-.PHONY: up down logs lint-be test-be migrate
+.PHONY: up down logs lint-be test-be test lint migrate
 
 up:
 	docker compose up --build -d
@@ -10,10 +10,14 @@ logs:
 	docker compose logs -f backend
 
 lint-be:
-	cd backend && ruff check . && ruff format --check .
+	cd backend && .venv/bin/ruff check . && .venv/bin/ruff format --check .
+
+lint: lint-be
 
 test-be:
-	cd backend && pytest
+	cd backend && .venv/bin/pytest
+
+test: test-be
 
 migrate:
 	docker compose exec backend alembic upgrade head

@@ -1,6 +1,9 @@
 from uuid import uuid4
 
-from app.exceptions.todo_exceptions import TodoNotFoundException, TodoValidationException
+from app.exceptions.todo_exceptions import (
+    TodoNotFoundException,
+    TodoValidationException,
+)
 
 
 class TestTodoNotFoundException:
