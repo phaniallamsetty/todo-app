@@ -5,10 +5,13 @@ from collections.abc import AsyncGenerator
 
 import pytest
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
+from sqlalchemy.pool import NullPool
 
 from app.config import settings
 from app.models.todo import Base, Todo
 from app.repositories.todo_repository import TodoRepository
+
+pytestmark = pytest.mark.asyncio(loop_scope="session")
 
 
 # ---------------------------------------------------------------------------
@@ -16,10 +19,12 @@ from app.repositories.todo_repository import TodoRepository
 # ---------------------------------------------------------------------------
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 async def engine() -> AsyncGenerator[AsyncEngine, None]:
-    """Create the schema once for the whole module, then tear it down."""
-    test_engine = create_async_engine(settings.database_url, echo=False)
+    """Create the schema once for the whole session, then tear it down."""
+    test_engine = create_async_engine(
+        settings.database_url, poolclass=NullPool, echo=False
+    )
     async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     yield test_engine

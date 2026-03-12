@@ -1,13 +1,18 @@
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
 from app.api.v1.router import router as v1_router
 from app.config import settings
 from app.database import engine
+from app.exceptions.todo_exceptions import (
+    TodoNotFoundException,
+    TodoValidationException,
+)
 
 
 @asynccontextmanager
@@ -33,6 +38,49 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    @app.exception_handler(TodoNotFoundException)
+    async def todo_not_found_handler(
+        request: Request, exc: TodoNotFoundException
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code=404,
+            content={
+                "data": None,
+                "meta": {"version": settings.app_version},
+                "error": {"code": "TODO_NOT_FOUND", "message": str(exc)},
+            },
+        )
+
+    @app.exception_handler(TodoValidationException)
+    async def todo_validation_handler(
+        request: Request, exc: TodoValidationException
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code=422,
+            content={
+                "data": None,
+                "meta": {"version": settings.app_version},
+                "error": {"code": "TODO_VALIDATION_ERROR", "message": exc.message},
+            },
+        )
+
+    @app.exception_handler(Exception)
+    async def generic_exception_handler(
+        request: Request, exc: Exception
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "data": None,
+                "meta": {"version": settings.app_version},
+                "error": {
+                    "code": "INTERNAL_ERROR",
+                    "message": "An unexpected error occurred",
+                },
+            },
+        )
+
     app.include_router(v1_router, prefix=settings.api_v1_prefix)
     return app
 
