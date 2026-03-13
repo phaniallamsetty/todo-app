@@ -13,7 +13,7 @@ lint-be:
 	cd backend && .venv/bin/ruff check . && .venv/bin/ruff format --check .
 
 lint-fe:
-	cd frontend && npm run lint
+	cd frontend && npm run lint && npm run typecheck
 
 lint: lint-be lint-fe
 

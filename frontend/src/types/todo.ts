@@ -45,3 +45,9 @@ export interface ApiEnvelope<T> {
   meta: ApiMeta;
   error: ApiErrorDetail | null;
 }
+
+export interface TodoFilters {
+  search?: string;
+  status?: 'all' | 'active' | 'completed';
+  priority?: 'all' | Priority;
+}
