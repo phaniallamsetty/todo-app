@@ -15,6 +15,8 @@ interface UseTodosResult {
 }
 
 export function useTodos(): UseTodosResult {
+  // useShallow prevents a re-render on every store update by doing a shallow
+  // equality check on the selected slice instead of referential equality.
   const { todos, total, page, pageSize, filters, setTodos } = useTodoStore(
     useShallow((state) => ({
       todos: state.todos,
