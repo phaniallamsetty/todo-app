@@ -54,7 +54,7 @@ export const TodoForm: FC<TodoFormProps> = ({ initialValues, onSubmit, onCancel,
           id="title"
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => { setTitle(e.target.value); setTitleError(''); }}
           disabled={isSubmitting}
           className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 ${
             titleError ? 'border-red-500' : 'border-gray-300'
