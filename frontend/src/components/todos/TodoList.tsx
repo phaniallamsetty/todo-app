@@ -14,6 +14,12 @@ interface TodoListProps {
 export const TodoList: FC<TodoListProps> = ({ todos, isLoading, onToggle, onEdit, onDelete }) => {
   if (isLoading) return <LoadingSpinner />;
 
+  if (todos.length === 0) {
+    return (
+      <p className="py-12 text-center text-gray-500">No todos yet. Add one above!</p>
+    );
+  }
+
   return (
     <ul className="space-y-2">
       {todos.map((todo) => (

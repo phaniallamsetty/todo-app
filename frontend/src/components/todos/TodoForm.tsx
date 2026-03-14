@@ -2,7 +2,7 @@ import { type FC, type FormEvent, useState, useEffect } from 'react';
 import { type Todo, type TodoCreate, type TodoUpdate, type Priority } from '../../types/todo';
 
 interface TodoFormProps {
-  initialValues: Todo | null;
+  initialValues?: Todo | null;
   onSubmit: (data: TodoCreate | TodoUpdate) => void;
   onCancel: () => void;
   isSubmitting: boolean;
@@ -55,7 +55,8 @@ export const TodoForm: FC<TodoFormProps> = ({ initialValues, onSubmit, onCancel,
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+          disabled={isSubmitting}
+          className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 ${
             titleError ? 'border-red-500' : 'border-gray-300'
           }`}
           placeholder="What needs to be done?"
@@ -70,8 +71,9 @@ export const TodoForm: FC<TodoFormProps> = ({ initialValues, onSubmit, onCancel,
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          disabled={isSubmitting}
           rows={3}
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
           placeholder="Optional details..."
         />
       </div>
@@ -83,7 +85,8 @@ export const TodoForm: FC<TodoFormProps> = ({ initialValues, onSubmit, onCancel,
           id="priority"
           value={priority}
           onChange={(e) => setPriority(e.target.value as Priority)}
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+          disabled={isSubmitting}
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <option value="low">Low</option>
           <option value="medium">Medium</option>
