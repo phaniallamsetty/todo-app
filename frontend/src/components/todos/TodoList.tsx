@@ -6,18 +6,24 @@ import { LoadingSpinner } from '../common/LoadingSpinner';
 interface TodoListProps {
   todos: Todo[];
   isLoading: boolean;
+  emptyMessage?: string;
   onToggle: (id: string) => void;
   onEdit: (todo: Todo) => void;
   onDelete: (id: string) => void;
 }
 
-export const TodoList: FC<TodoListProps> = ({ todos, isLoading, onToggle, onEdit, onDelete }) => {
+export const TodoList: FC<TodoListProps> = ({
+  todos,
+  isLoading,
+  emptyMessage = 'No todos yet. Add one above!',
+  onToggle,
+  onEdit,
+  onDelete,
+}) => {
   if (isLoading) return <LoadingSpinner />;
 
   if (todos.length === 0) {
-    return (
-      <p className="py-12 text-center text-gray-500">No todos yet. Add one above!</p>
-    );
+    return <p className="py-12 text-center text-gray-500">{emptyMessage}</p>;
   }
 
   return (
