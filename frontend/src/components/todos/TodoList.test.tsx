@@ -18,25 +18,58 @@ const noop = vi.fn();
 
 describe('TodoList', () => {
   it('shows loading spinner when isLoading is true', () => {
-    render(<TodoList todos={[]} isLoading={true} onToggle={noop} onEdit={noop} onDelete={noop} />);
+    render(
+      <TodoList
+        todos={[]}
+        isLoading={true}
+        onToggle={noop}
+        onEdit={noop}
+        onDelete={noop}
+      />,
+    );
     expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
   it('shows empty state when todos array is empty', () => {
-    render(<TodoList todos={[]} isLoading={false} onToggle={noop} onEdit={noop} onDelete={noop} />);
+    render(
+      <TodoList
+        todos={[]}
+        isLoading={false}
+        onToggle={noop}
+        onEdit={noop}
+        onDelete={noop}
+      />,
+    );
     expect(screen.getByText(/no todos yet/i)).toBeInTheDocument();
   });
 
   it('renders a TodoItem for each todo', () => {
-    const todos = [makeTodo({ id: '1', title: 'First' }), makeTodo({ id: '2', title: 'Second' })];
-    render(<TodoList todos={todos} isLoading={false} onToggle={noop} onEdit={noop} onDelete={noop} />);
+    const todos = [
+      makeTodo({ id: '1', title: 'First' }),
+      makeTodo({ id: '2', title: 'Second' }),
+    ];
+    render(
+      <TodoList
+        todos={todos}
+        isLoading={false}
+        onToggle={noop}
+        onEdit={noop}
+        onDelete={noop}
+      />,
+    );
     expect(screen.getByText('First')).toBeInTheDocument();
     expect(screen.getByText('Second')).toBeInTheDocument();
   });
 
   it('does not show empty state when todos are present', () => {
     render(
-      <TodoList todos={[makeTodo()]} isLoading={false} onToggle={noop} onEdit={noop} onDelete={noop} />,
+      <TodoList
+        todos={[makeTodo()]}
+        isLoading={false}
+        onToggle={noop}
+        onEdit={noop}
+        onDelete={noop}
+      />,
     );
     expect(screen.queryByText(/no todos yet/i)).not.toBeInTheDocument();
   });

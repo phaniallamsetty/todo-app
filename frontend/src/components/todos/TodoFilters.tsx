@@ -41,7 +41,9 @@ export const TodoFilters: FC<TodoFiltersProps> = ({ filters, onChange }) => {
         {STATUS_OPTIONS.map((status) => (
           <button
             key={status}
-            onClick={() => onChange({ ...filters, status: status === 'all' ? undefined : status })}
+            onClick={() =>
+              onChange({ ...filters, status: status === 'all' ? undefined : status })
+            }
             className={`border-r border-gray-300 px-3 py-2 text-sm capitalize last:border-r-0 ${
               currentStatus === status
                 ? 'bg-blue-600 text-white'
@@ -57,7 +59,8 @@ export const TodoFilters: FC<TodoFiltersProps> = ({ filters, onChange }) => {
         onChange={(e) =>
           onChange({
             ...filters,
-            priority: e.target.value === 'all' ? undefined : (e.target.value as Priority),
+            priority:
+              e.target.value === 'all' ? undefined : (e.target.value as Priority),
           })
         }
         aria-label="Priority filter"

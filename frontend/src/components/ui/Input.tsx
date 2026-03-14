@@ -1,15 +1,15 @@
-import { useId, type InputHTMLAttributes } from 'react'
+import { useId, type InputHTMLAttributes } from 'react';
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
-  label: string
-  error?: string
-  helperText?: string
+  label: string;
+  error?: string;
+  helperText?: string;
 }
 
 export function Input({ label, error, helperText, className, ...props }: InputProps) {
-  const id = useId()
-  const errorId = `${id}-error`
-  const helperId = `${id}-helper`
+  const id = useId();
+  const errorId = `${id}-error`;
+  const helperId = `${id}-helper`;
 
   return (
     <div className="flex flex-col gap-1">
@@ -42,5 +42,5 @@ export function Input({ label, error, helperText, className, ...props }: InputPr
         </p>
       )}
     </div>
-  )
+  );
 }

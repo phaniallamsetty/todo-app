@@ -1,5 +1,11 @@
 import axios from 'axios';
-import type { Todo, TodoCreate, TodoUpdate, TodoListResponse, ApiEnvelope } from '../types/todo';
+import type {
+  Todo,
+  TodoCreate,
+  TodoUpdate,
+  TodoListResponse,
+  ApiEnvelope,
+} from '../types/todo';
 
 export class ApiError extends Error {
   constructor(
@@ -34,7 +40,9 @@ export interface GetTodosParams {
 }
 
 export async function getTodos(params?: GetTodosParams): Promise<TodoListResponse> {
-  const response = await apiClient.get<ApiEnvelope<TodoListResponse>>('/todos', { params });
+  const response = await apiClient.get<ApiEnvelope<TodoListResponse>>('/todos', {
+    params,
+  });
   return unwrap(response.data);
 }
 

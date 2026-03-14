@@ -167,7 +167,9 @@ describe('App', () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole('button', { name: `Delete "${baseTodo.title}"` }));
+    await user.click(
+      screen.getByRole('button', { name: `Delete "${baseTodo.title}"` }),
+    );
 
     await waitFor(() => {
       expect(mockDeleteTodo).toHaveBeenCalledWith(baseTodo.id);
@@ -180,7 +182,9 @@ describe('App', () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole('button', { name: `Delete "${baseTodo.title}"` }));
+    await user.click(
+      screen.getByRole('button', { name: `Delete "${baseTodo.title}"` }),
+    );
 
     await waitFor(() => {
       expect(screen.getByRole('alert')).toHaveTextContent('Network error');

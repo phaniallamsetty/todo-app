@@ -16,7 +16,14 @@ const baseTodo: Todo = {
 
 describe('TodoItem', () => {
   it('renders title, priority badge, and description', () => {
-    render(<TodoItem todo={baseTodo} onToggle={vi.fn()} onEdit={vi.fn()} onDelete={vi.fn()} />);
+    render(
+      <TodoItem
+        todo={baseTodo}
+        onToggle={vi.fn()}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
     expect(screen.getByText('Buy groceries')).toBeInTheDocument();
     expect(screen.getByText('medium')).toBeInTheDocument();
     expect(screen.getByText('Milk and eggs')).toBeInTheDocument();
@@ -24,35 +31,66 @@ describe('TodoItem', () => {
 
   it('applies line-through style when completed', () => {
     render(
-      <TodoItem todo={{ ...baseTodo, completed: true }} onToggle={vi.fn()} onEdit={vi.fn()} onDelete={vi.fn()} />,
+      <TodoItem
+        todo={{ ...baseTodo, completed: true }}
+        onToggle={vi.fn()}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+      />,
     );
     expect(screen.getByText('Buy groceries')).toHaveClass('line-through');
   });
 
   it('checkbox is checked when todo is completed', () => {
     render(
-      <TodoItem todo={{ ...baseTodo, completed: true }} onToggle={vi.fn()} onEdit={vi.fn()} onDelete={vi.fn()} />,
+      <TodoItem
+        todo={{ ...baseTodo, completed: true }}
+        onToggle={vi.fn()}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+      />,
     );
     expect(screen.getByRole('checkbox')).toBeChecked();
   });
 
   it('calls onToggle with todo id when checkbox clicked', async () => {
     const onToggle = vi.fn();
-    render(<TodoItem todo={baseTodo} onToggle={onToggle} onEdit={vi.fn()} onDelete={vi.fn()} />);
+    render(
+      <TodoItem
+        todo={baseTodo}
+        onToggle={onToggle}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
     await userEvent.click(screen.getByRole('checkbox'));
     expect(onToggle).toHaveBeenCalledWith('abc-123');
   });
 
   it('calls onEdit with the todo when Edit clicked', async () => {
     const onEdit = vi.fn();
-    render(<TodoItem todo={baseTodo} onToggle={vi.fn()} onEdit={onEdit} onDelete={vi.fn()} />);
+    render(
+      <TodoItem
+        todo={baseTodo}
+        onToggle={vi.fn()}
+        onEdit={onEdit}
+        onDelete={vi.fn()}
+      />,
+    );
     await userEvent.click(screen.getByRole('button', { name: /edit/i }));
     expect(onEdit).toHaveBeenCalledWith(baseTodo);
   });
 
   it('calls onDelete with todo id when Delete clicked', async () => {
     const onDelete = vi.fn();
-    render(<TodoItem todo={baseTodo} onToggle={vi.fn()} onEdit={vi.fn()} onDelete={onDelete} />);
+    render(
+      <TodoItem
+        todo={baseTodo}
+        onToggle={vi.fn()}
+        onEdit={vi.fn()}
+        onDelete={onDelete}
+      />,
+    );
     await userEvent.click(screen.getByRole('button', { name: /delete/i }));
     expect(onDelete).toHaveBeenCalledWith('abc-123');
   });

@@ -1,5 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getTodos, getTodoById, createTodo, updateTodo, deleteTodo, ApiError } from './todoApi';
+import {
+  getTodos,
+  getTodoById,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  ApiError,
+} from './todoApi';
 import type { ApiEnvelope, Todo, TodoListResponse } from '../types/todo';
 
 const { mockGet, mockPost, mockPut, mockDelete } = vi.hoisted(() => ({
@@ -56,7 +63,9 @@ describe('todoApi', () => {
       mockGet.mockResolvedValue(envelope(mockListResponse));
       const result = await getTodos({ page: 1, page_size: 20 });
       expect(result).toEqual(mockListResponse);
-      expect(mockGet).toHaveBeenCalledWith('/todos', { params: { page: 1, page_size: 20 } });
+      expect(mockGet).toHaveBeenCalledWith('/todos', {
+        params: { page: 1, page_size: 20 },
+      });
     });
 
     it('throws ApiError when envelope contains error', async () => {
@@ -96,7 +105,9 @@ describe('todoApi', () => {
       mockPut.mockResolvedValue(envelope(updated));
       const result = await updateTodo(mockTodo.id, { completed: true });
       expect(result).toEqual(updated);
-      expect(mockPut).toHaveBeenCalledWith(`/todos/${mockTodo.id}`, { completed: true });
+      expect(mockPut).toHaveBeenCalledWith(`/todos/${mockTodo.id}`, {
+        completed: true,
+      });
     });
   });
 
