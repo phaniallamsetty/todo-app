@@ -11,6 +11,8 @@ export class ApiError extends Error {
   }
 }
 
+// Falls back to '/api/v1' so the Vite dev proxy handles routing in local
+// development without needing VITE_API_URL to be set.
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL ?? '/api/v1',
 });
