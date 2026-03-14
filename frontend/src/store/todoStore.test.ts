@@ -70,7 +70,9 @@ describe('todoStore', () => {
   describe('updateTodo', () => {
     it('updates matching todo by id', () => {
       useTodoStore.setState({ todos: [mockTodo] });
-      useTodoStore.getState().updateTodo(mockTodo.id, { completed: true, title: 'Updated' });
+      useTodoStore
+        .getState()
+        .updateTodo(mockTodo.id, { completed: true, title: 'Updated' });
       const { todos } = useTodoStore.getState();
       expect(todos[0]?.completed).toBe(true);
       expect(todos[0]?.title).toBe('Updated');

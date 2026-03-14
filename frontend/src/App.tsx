@@ -9,7 +9,12 @@ import { TodoList } from './components/todos/TodoList';
 import { TodoForm } from './components/todos/TodoForm';
 import { Modal } from './components/ui/Modal';
 import { Pagination } from './components/ui/Pagination';
-import type { Todo, TodoCreate, TodoUpdate, TodoFilters as UIFilters } from './types/todo';
+import type {
+  Todo,
+  TodoCreate,
+  TodoUpdate,
+  TodoFilters as UIFilters,
+} from './types/todo';
 import type { TodoFilters as StoreFilters } from './store/todoStore';
 
 function toStoreFilters(ui: UIFilters): StoreFilters {
@@ -37,13 +42,18 @@ export default function App() {
 
   const totalPages = Math.ceil(total / pageSize) || 1;
   const remainingCount = todos.filter((t) => !t.completed).length;
-  const hasFilters = filters.completed !== null || filters.priority !== null || filters.search !== '';
+  const hasFilters =
+    filters.completed !== null || filters.priority !== null || filters.search !== '';
   const displayError = error?.message ?? mutationError;
 
   const uiFilters: UIFilters = {
     search: filters.search,
     status:
-      filters.completed === true ? 'completed' : filters.completed === false ? 'active' : 'all',
+      filters.completed === true
+        ? 'completed'
+        : filters.completed === false
+          ? 'active'
+          : 'all',
     priority: filters.priority ?? 'all',
   };
 
@@ -120,7 +130,10 @@ export default function App() {
         )}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex-1">
-            <TodoFilters filters={uiFilters} onChange={(ui) => setFilters(toStoreFilters(ui))} />
+            <TodoFilters
+              filters={uiFilters}
+              onChange={(ui) => setFilters(toStoreFilters(ui))}
+            />
           </div>
           <button
             onClick={() => {
@@ -145,11 +158,19 @@ export default function App() {
         />
         {totalPages > 1 && (
           <div className="flex justify-center pt-2">
-            <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+            />
           </div>
         )}
       </main>
-      <Modal isOpen={modalOpen} onClose={closeModal} title={editingTodo ? 'Edit Todo' : 'New Todo'}>
+      <Modal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        title={editingTodo ? 'Edit Todo' : 'New Todo'}
+      >
         <TodoForm
           initialValues={editingTodo}
           onSubmit={(data) => void handleSubmit(data)}

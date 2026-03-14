@@ -27,14 +27,18 @@ export const TodoItem: FC<TodoItemProps> = ({ todo, onToggle, onEdit, onDelete }
         aria-label={`Mark "${todo.title}" as ${todo.completed ? 'incomplete' : 'complete'}`}
       />
       <div className="min-w-0 flex-1">
-        <p className={`font-medium text-gray-900 ${todo.completed ? 'line-through text-gray-400' : ''}`}>
+        <p
+          className={`font-medium text-gray-900 ${todo.completed ? 'line-through text-gray-400' : ''}`}
+        >
           {todo.title}
         </p>
         {todo.description && (
           <p className="mt-0.5 text-sm text-gray-500">{todo.description}</p>
         )}
         <div className="mt-1 flex items-center gap-2">
-          <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${PRIORITY_BADGE[todo.priority]}`}>
+          <span
+            className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${PRIORITY_BADGE[todo.priority]}`}
+          >
             {todo.priority}
           </span>
           <span className="text-xs text-gray-400">{formattedDate}</span>

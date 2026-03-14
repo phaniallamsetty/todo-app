@@ -1,5 +1,10 @@
 import { type FC, type FormEvent, useState, useEffect } from 'react';
-import { type Todo, type TodoCreate, type TodoUpdate, type Priority } from '../../types/todo';
+import {
+  type Todo,
+  type TodoCreate,
+  type TodoUpdate,
+  type Priority,
+} from '../../types/todo';
 
 interface TodoFormProps {
   initialValues?: Todo | null;
@@ -8,10 +13,17 @@ interface TodoFormProps {
   isSubmitting: boolean;
 }
 
-export const TodoForm: FC<TodoFormProps> = ({ initialValues, onSubmit, onCancel, isSubmitting }) => {
+export const TodoForm: FC<TodoFormProps> = ({
+  initialValues,
+  onSubmit,
+  onCancel,
+  isSubmitting,
+}) => {
   const [title, setTitle] = useState(initialValues?.title ?? '');
   const [description, setDescription] = useState(initialValues?.description ?? '');
-  const [priority, setPriority] = useState<Priority>(initialValues?.priority ?? 'medium');
+  const [priority, setPriority] = useState<Priority>(
+    initialValues?.priority ?? 'medium',
+  );
   const [titleError, setTitleError] = useState('');
 
   useEffect(() => {
@@ -54,7 +66,10 @@ export const TodoForm: FC<TodoFormProps> = ({ initialValues, onSubmit, onCancel,
           id="title"
           type="text"
           value={title}
-          onChange={(e) => { setTitle(e.target.value); setTitleError(''); }}
+          onChange={(e) => {
+            setTitle(e.target.value);
+            setTitleError('');
+          }}
           disabled={isSubmitting}
           className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 ${
             titleError ? 'border-red-500' : 'border-gray-300'
@@ -64,7 +79,10 @@ export const TodoForm: FC<TodoFormProps> = ({ initialValues, onSubmit, onCancel,
         {titleError && <p className="mt-1 text-xs text-red-600">{titleError}</p>}
       </div>
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="description"
+          className="block text-sm font-medium text-gray-700"
+        >
           Description
         </label>
         <textarea

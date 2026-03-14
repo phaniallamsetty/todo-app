@@ -1,12 +1,12 @@
 interface PaginationProps {
-  currentPage: number
-  totalPages: number
-  onPageChange: (page: number) => void
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 }
 
 export function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
-  const isFirst = currentPage <= 1
-  const isLast = currentPage >= totalPages
+  const isFirst = currentPage <= 1;
+  const isLast = currentPage >= totalPages;
 
   return (
     <nav aria-label="Pagination" className="flex items-center gap-4">
@@ -30,5 +30,5 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
         Next
       </button>
     </nav>
-  )
+  );
 }
