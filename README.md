@@ -75,14 +75,9 @@ Interactive API docs are available at **http://localhost:8000/docs**.
 | `make test`    | Run all tests (backend + frontend)                |
 | `make test-be` | Backend tests via pytest (with coverage)          |
 | `make test-fe` | Frontend tests via Vitest                         |
+| `make setup`   | Create backend `.venv` and install dev deps       |
 
-**Backend local dev setup** (required for `make lint-be` / `make test-be`):
-
-```bash
-cd backend
-python -m venv .venv
-.venv/bin/pip install -e ".[dev]"
-```
+> Run `make setup` once before using `make lint-be` or `make test-be`.
 
 ## Project Structure
 

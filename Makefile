@@ -1,4 +1,7 @@
-.PHONY: up down logs lint-be lint-fe test-be test-fe test lint migrate
+.PHONY: up down logs lint-be lint-fe test-be test-fe test lint migrate setup
+
+setup:
+	cd backend && python -m venv .venv && .venv/bin/pip install -e ".[dev]"
 
 up:
 	docker compose up --build -d
